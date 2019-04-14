@@ -1,0 +1,80 @@
+!% !-----------------------------------------------------------------------------
+!% ! Inform Compiler Switches
+!% !-----------------------------------------------------------------------------
+!% +include_path=./,<Inform Library Location>
+!% -v5
+!% -s   !--give statistics
+!% -S   !--strict error-checking at run-time
+!% -X   !--infix (don't leave in final release; not available in glulx)
+!% -D   !--debug (don't leave in final release)
+!% -r   !--print story contents so they can be run through a spellchecker
+!% +transcript_name=transcript.txt
+
+
+!---------------------------------------------------------------------------------
+! Original Template by Jim Fisher (http://inform.onyxring.com)
+!---------------------------------------------------------------------------------
+
+Serial "000000";
+Release 0;
+
+Constant Story "<Story Title>";
+Constant Headline "^Copyright (c) <Year>: <Author>^";
+#ifndef WORDSIZE;
+    Constant TARGET_ZCODE 0;
+    Constant WORDSIZE     2 + TARGET_ZCODE;
+#endif;
+
+
+!---------------------------------------------------------------------------------
+! Attributes
+!---------------------------------------------------------------------------------
+
+#Include "Parser";
+#Include "VerbLib";
+
+
+!---------------------------------------------------------------------------------
+! Classes
+!---------------------------------------------------------------------------------
+Class       Room
+    class   Object
+    has     light
+;
+
+
+!---------------------------------------------------------------------------------
+! Rooms
+!---------------------------------------------------------------------------------
+Room start_room "The Starting Room"
+  with  name 'start' 'room',
+        description "You are in a room."
+;
+
+[Initialise;
+    location = start_room;
+
+    print "^^Opening paragraph 1
+    ^^
+    Opening paragraph 2
+    ^^
+    [Press any key to continue]^^";
+
+    KeyCharPrimitive();
+    lookmode = 2;
+
+    return 0;
+];
+
+
+!---------------------------------------------------------------------------------
+! Grammer
+!---------------------------------------------------------------------------------
+
+#Include "Grammar";
+
+[TestSub;
+    print_ret "Test!";
+];
+
+Verb "test"   *   -> Test;
